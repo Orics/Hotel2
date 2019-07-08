@@ -5,13 +5,21 @@
  */
 package hotel;
 
+import hotel.GUI.LoginWindownController;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -20,25 +28,20 @@ import javafx.stage.Stage;
 public class Hotel extends Application {
     
     @Override
-    public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
-        
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        
-        Scene scene = new Scene(root, 300, 250);
-        
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    public void start(Stage stage) {
+         try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("GUI/LoginWindown.fxml"));
+            Parent login = loader.load();
+            LoginWindownController controller = (LoginWindownController)loader.getController();
+            controller.setStage(stage);
+            stage.initStyle(StageStyle.TRANSPARENT);
+            Scene scene = new Scene(login);
+            scene.setFill(Color.TRANSPARENT);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+             System.out.println("LoginWindown: fail");
+        }
     }
 
     /**
